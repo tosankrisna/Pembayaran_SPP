@@ -14,16 +14,13 @@ class CreateSiswaTable extends Migration
     public function up()
     {
         Schema::create('siswa', function (Blueprint $table) {
-            $table->id('id_siswa', 11);
+            $table->id(11);
             $table->char('nis', 8)->unique();
-            $table->string('username', 25)->unique();
-            $table->string('password', 32);
+            $table->string('password');
             $table->string('nama', 35);
-            $table->foreignId('id_kelas', 11);
             $table->text('alamat')->nullable();
             $table->string('no_telp', 13)->nullable();
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
-            $table->foreignId('id_spp', 11);
             $table->timestamps();
         });
     }
