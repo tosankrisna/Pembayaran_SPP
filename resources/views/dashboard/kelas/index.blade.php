@@ -2,8 +2,8 @@
 
 @section('dashboard-content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 text-gray-800">Daftar Petugas</h1>
-  <a href="{{ route('createPetugas') }}" class="btn btn-primary btn-sm btn-icon-split">
+  <h1 class="h3 mb-0 text-gray-800">Daftar Kelas</h1>
+  <a href="{{ route('createKelas') }}" class="btn btn-primary btn-sm btn-icon-split">
     <span class="icon text-white-50 rounded-circle">
       <i class="fas fa-plus"></i>
     </span>
@@ -26,21 +26,24 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama</th>
-              <th>NIP</th>
-              <th>Jenis Kelamin</th>
-              <th>Detail</th>
+              <th>Nama Kelas</th>
+              <th>Kompetensi Keahlian</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($petugas as $data)
+            @foreach($kelas as $kls)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $data->nama_petugas }}</td>
-                <td>{{ $data->nip }}</td>
-                <td class="text-capitalize">{{ $data->jenis_kelamin }}</td>
-                <td>
-                  <a href="{{ route('detailPetugas', $data->id_petugas) }}" class="btn btn-sm btn-warning"><i class="fas fa-info-circle mr-1"></i>Detail</a>
+                <td>{{ $kls->nama_kelas }}</td>
+                <td>{{ $kls->kompetensi_keahlian }}</td>
+                <td class="d-flex gap-2">
+                  <a href="{{ route('editKelas', $kls->id_kelas) }}" class="btn btn-sm btn-primary"><i class="fas fa-pen mr-1"></i>Edit</a>
+                  <form action="/dashboard/kelas/{{ $kls->id_kelas }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash mr-1"></i>Delete</button>
+                  </form>
                 </td>
               </tr>
             @endforeach
